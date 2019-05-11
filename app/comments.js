@@ -25,6 +25,28 @@ const createRouter = () => {
 				res.send(result);
 			});
 		});
+
+		router.post('/', upload.single(), (req, res) => {
+			if (!req.body.news_id || !req.body.comment) {
+				res.status(400).send({error: 'news id and comment text are required'});
+			} else {
+				const query = `insert into comments(news_id, author, comment) 
+                values (
+                '${req.body.news_id}', 
+                '${req.body.author || "Anonymous"}',
+                '${req.body.comment}'
+                );`;
+
+				connection.query(query, function (err, result) {
+					if (err) {res.status(400).send({error: err});}
+					else {
+						req.body.id = result.insertId;
+						req.body.author = req.body.author || "Anonymous";
+						res.send(req.body);
+					}
+				});
+			}
+		});
 	});
 
 	return router;
