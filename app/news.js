@@ -25,7 +25,7 @@ const createRouter = () => {
 		if (err) res.status(500).send({error: err});
 
 		router.get('/', (req, res) => {
-			const query = `select * from news;`;
+			const query = `select id, title, image, date from news;`;
 
 			connection.query(query, function (err, result) {
 				if (err) res.status(400).send({error: err});
