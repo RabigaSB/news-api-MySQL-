@@ -15,10 +15,12 @@ const createRouter = () => {
 		if (err) res.status(500).send({error: err});
 
 		router.get('/', (req, res) => {
+			let query = `select * from comments;`;
+			if(req.query.news_id) {
+				query = `select * from comments where news_id = ${req.query.news_id};`
+			}
 
-			const query = `select * from comments;`;
-
-			connection.query(query, function (err, result) {
+			connection.query( query + ';', function (err, result) {
 				if (err) res.status(400).send({error: err});
 				res.send(result);
 			});
