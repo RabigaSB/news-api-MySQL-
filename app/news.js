@@ -33,6 +33,34 @@ const createRouter = () => {
 			});
 		});
 
+		router.post('/', upload.single('image'), (req, res) => {
+
+			if (!req.body.title || !req.body.article) {
+				res.status(400).send({error: 'Title and the article text are required'});
+			} else {
+				if (req.file) {
+					req.body.image = req.file.filename;
+				}
+
+				const query = `insert into news(title, article, image, date) 
+                values (
+                '${req.body.title}', 
+                '${req.body.article}', 
+                '${req.body.image || ""}',
+                '${req.body.date}'
+                );`;
+
+
+				connection.query(query, function (err, result) {
+					if (err) res.status(400).send({error: err});
+					req.body.id = result.insertId;
+					res.send(req.body);
+				});
+			}
+		});
+
+
+
 
 	});
 
