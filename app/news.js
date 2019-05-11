@@ -59,6 +59,18 @@ const createRouter = () => {
 			}
 		});
 
+		router.get('/:id', (req, res) => {
+
+			const id = req.params.id;
+
+			const query = `select * from news where id = ${id};`;
+
+			connection.query(query, function (err, result) {
+				if (err) res.status(400).send({error: err});
+				res.send(result);
+			});
+		});
+
 
 
 
