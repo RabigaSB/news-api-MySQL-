@@ -34,6 +34,7 @@ const createRouter = () => {
 		});
 
 		router.post('/', upload.single('image'), (req, res) => {
+			console.log(req.body);
 
 			if (!req.body.title || !req.body.article) {
 				res.status(400).send({error: 'Title and the article text are required'});
@@ -41,6 +42,7 @@ const createRouter = () => {
 				if (req.file) {
 					req.body.image = req.file.filename;
 				}
+
 
 				const query = `insert into news(title, article, image, date) 
                 values (
@@ -50,11 +52,15 @@ const createRouter = () => {
                 '${req.body.date}'
                 );`;
 
+				console.log(query);
+
 
 				connection.query(query, function (err, result) {
-					if (err) res.status(400).send({error: err});
-					req.body.id = result.insertId;
-					res.send(req.body);
+					if (err) {res.status(400).send({error: err});}
+					else {
+						req.body.id = result.insertId;
+						res.send(req.body);
+					}
 				});
 			}
 		});
