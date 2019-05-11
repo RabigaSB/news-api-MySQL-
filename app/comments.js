@@ -47,6 +47,16 @@ const createRouter = () => {
 				});
 			}
 		});
+
+		router.delete('/:id', (req, res) => {
+			const id = req.params.id;
+			const query = `delete from comments where id = ${id};`;
+
+			connection.query(query, function (err, result) {
+				if (err) res.status(400).send({error: err});
+				res.send(result);
+			});
+		});
 	});
 
 	return router;
