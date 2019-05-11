@@ -41,3 +41,6 @@ connection.connect(function(err) {
 		console.log("Result: " , result);
 	});
 });
+
+// this piece of code is to reset password
+// ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password10'

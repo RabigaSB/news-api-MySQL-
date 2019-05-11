@@ -1,5 +1,5 @@
 {
-  "name": "office-api",
+  "name": "news-api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,8 +9,7 @@
     "dev": "nodemon server.js"
   },
   "repository": {
-    "type": "git",
-    "url": "ssh://git@git.attractor-school.com:30022/flintstoneChurchill/shop-api.git"
+    "type": "git"
   },
   "author": "",
   "license": "ISC",
