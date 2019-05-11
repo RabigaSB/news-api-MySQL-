@@ -26,7 +26,7 @@ const query =
 	(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	news_id INT NOT NULL,
-    FOREIGN KEY FK_comments(news_id) REFERENCES news(id),
+    FOREIGN KEY FK_comments(news_id) REFERENCES news(id) ON DELETE CASCADE,
     author VARCHAR(100),
     comment VARCHAR(200) NOT NULL
     );
